@@ -1,0 +1,18 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu1.html' %}
+<section class="e-vac">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="pt-5 pb-1">E-vac</h1>
+                <h3 class="pt-3">Sua carteira de vacinação digital</h3>
+                <p class="pt-5 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam eaque amet voluptas soluta omnis reprehenderit recusandae, dolore laboriosam facere hic porro nihil quidem voluptatibus? Amet veniam accusantium architecto officia nobis. Lorem
+                    ipsum dolor sit amet consectetur, adipisicing elit. Delectus optio ipsum necessitatibus laudantium repellendus autem modi voluptate nobis quisquam cumque hic dolores ducimus, tempora illo blanditiis. Quaerat fugiat eaque dignissimos.
+                </p>
+            </div>
+            <div class="col-lg-4 d-flex justify-content-center">
+                <img src="{% static 'img/vaccine.png' %}" alt="" style="width: 420px;">
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'core/_footer.html' %}{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu2.html' %}
+<section class="agendar">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-center pt-5 mb-5 d-inline border-bottom">Registrar vacina</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="form form-agendar">
+                    <form action="{% url 'registrar_vacina' %}" method="post">
+                        {% csrf_token %}
+                        <label for="">NOME DA VACINA</label>
+                        <select name="vacina_id" id="">
+                            <option value="">Selecione...</option>
+                            {% for vacina in vacinas %}
+                            <option value="{{vacina.id}}">Vacina {{vacina.nome}}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="">DATA DA VACINAÇÃO</label>
+                        <input name="data" type="date" placeholder="Selecione a data...">
+                        <button type="submit" class="mt-2">REGISTRAR</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex justify-content-center">
+                <img src="{% static 'img/register-vacine.png' %}" alt="" style="width: 420px;">
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'core/_footer.html' %}{% endblock %}

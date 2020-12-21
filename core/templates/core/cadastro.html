@@ -1,0 +1,29 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu1.html' %}
+<section class="cadastro">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-center pt-5 mb-5 d-inline border-bottom">Cadastro</h1>
+            </div>
+        </div>
+        {% include 'core/_alertas.html' %}
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="form">
+                    <form action="{% url 'cadastro' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="nome" placeholder="Seu nome..." required>
+                        <input type="text" name="email" placeholder="Seu E-mail..." required>
+                        <input type="password" name="senha1" placeholder="Sua senha..." required>
+                        <input type="password" name="senha2" placeholder="Digite novamente sua senha..." required>
+                        <button type="submit" class="mt-2">CADASTRAR</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex justify-content-center">
+                <img src="{% static 'img/register.png' %}" alt="" style="width: 420px;">
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'core/_footer.html' %}{% endblock %}

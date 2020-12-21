@@ -1,0 +1,32 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu1.html' %}
+<section class="cadastro">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-center pt-5 mb-5 d-inline border-bottom">Cadastro do profissional</h1>
+            </div>
+        </div>
+        {% include 'core/_alertas.html' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="form">
+                    <form action="{% url 'dashboard_coord' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="nome" placeholder="Nome do profissional..." required>
+                        <input type="text" name="email" placeholder="E-mail do profissional..." required>
+                        <select name="estabelecimento_id" id="">
+                            <option value="">Selecione o estabelecimento do profissional...</option>
+                            {% for estabelecimento in estabelecimentos %}
+                            <option value="{{ estabelecimento.id }}">{{ estabelecimento.nomeFantasia }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="password" name="senha1" placeholder="Senha..." required>
+                        <input type="password" name="senha2" placeholder="Senha novamente..." required>
+                        <button type="submit" class="mt-2">CADASTRAR PROFISSIONAL</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'core/_footer.html' %}{% endblock %}

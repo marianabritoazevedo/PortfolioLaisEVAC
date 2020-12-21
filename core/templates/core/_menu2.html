@@ -1,0 +1,23 @@
+{% load static %}
+<nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-orange">
+    <div class="container">
+        <img src="{% static 'img/vaccine-icon-2.png' %}" alt="" style="width: 58px; margin-right: 10px;">
+        <a href="#" class="navbar-brand h1 mb-0" style="color: #323232; font-size: 32px;">E-vac</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSite">
+            <ul class="navbar-nav ml-auto">
+                <li class="navbar-item mr-2">
+                    <a href="{% url 'dashboard_paciente' %}" class="nav-link">INÍCIO</a>
+                </li>
+                <li class="navbar-item mr-2">
+                    <a href="{% url 'selecionar_municipio' %}" class="nav-link">AGENDAR VACINAÇÃO</a>
+                </li>
+                <li class="navbar-item mr-2">
+                    <a href="{% url 'logout' %}" class="nav-link">SAIR</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

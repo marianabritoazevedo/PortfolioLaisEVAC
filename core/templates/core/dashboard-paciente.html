@@ -1,0 +1,52 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu2.html' %}
+<section class="dashboard-paciente">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-center pt-5 mb-5 d-inline border-bottom">Seja bem-vindo(a), {{ user.username }}</h1>
+            </div>
+        </div>
+        {% include 'core/_alertas.html' %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card-vacinas mb-5">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h4 class="text-center pt-4 d-inline border-bottom">Meu cartão de vacina</h4>
+                    </div>
+                    <div class="col-12 vacinas-pendentes">
+                        <ul>
+                            {% for vacina in vacinas %}
+                            <li>Vacina {{vacina.vacina.nome}} - {{vacina.data}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="registro-vacina d-flex justify-content-end mb-3">
+                        <a href="{% url 'registrar_vacina' %}">Registrar vacina anterior</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-agendamentos mb-5">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h4 class="text-center pt-4 d-inline border-bottom">Meus agendamentos</h4>
+                    </div>
+                    {% for horario in horarios %}
+                    <div class="col-12">
+                        <i class="fas fa-syringe"></i>
+                        <h5 style="display: inline-block; position: relative; top: 4px;">Vacina {{horario.vacina}}</h5>
+                    </div>
+                    <div class="col-12 meus-agendamentos-paciente">
+                        <ul>
+                            <li>Data: {{horario.agenda.data}}</li><br>
+                            <li>Horário: {{horario.horario}}</li><br>
+                            <li>Local: {{horario.agenda.estabelecimento.nomeFantasia}}</li><br> {% if horario.fila != 0 %}
+                            <li>Posição: {{horario.fila}}</li><br> {% endif %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'core/_footer.html' %}{% endblock %}

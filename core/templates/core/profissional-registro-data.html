@@ -1,0 +1,31 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu3.html' %}
+<section class="dashboard-profissional">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-center pt-5 mb-5 d-inline border-bottom">Registrar data de vacinação</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h4 class="text-center mb-5 "> <b>Estabelecimento:</b> {{profissional.estabelecimento.nomeFantasia}} - {{profissional.estabelecimento.municipio.nome}}/{{profissional.estabelecimento.municipio.uf.nome}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card-vacinas mb-5 px-3 py-3">
+                    <form action="{% url 'profissional_registro_data' %}" method="POST">
+                        {% csrf_token %}
+                        <label for="" style="font-weight: bold; margin-bottom: -15px; padding-left: 5px; font-size: 13px;">DATA DE VACINAÇÃO</label>
+                        <input type="date" name="data_estabelecimento">
+                        <div class="visualizar col-12 d-flex justify-content-end">
+                            <button type="submit">CADASTRAR AGENDA</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'core/_footer.html' %}{% endblock %}

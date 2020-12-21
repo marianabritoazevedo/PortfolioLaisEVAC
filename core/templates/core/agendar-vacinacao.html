@@ -1,0 +1,38 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu2.html' %}
+<section class="agendar">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-center pt-5 mb-5 d-inline border-bottom">Agendar Vacinação {{user.username}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="form form-agendar">
+                    <form action="{% url 'agendar_vacinacao' estabelecimento.id %}" method="post">
+                        {% csrf_token %}
+                        <label for="">NOME DA VACINA</label>
+                        <select name="vacina_id" id="">
+                                <option value="">Selecione...</option>
+                                {% for vacina in vacinas %}
+                                <option value="{{vacina.id}}">Vacina {{vacina.nome}}</option>
+                                {% endfor %}
+                        </select>
+                        <label for="">DATA E HORÁRIO DA VACINAÇÃO</label>
+                        <select name="horario_id" id="">
+                            <option value="">Selecione...</option>
+                            {% for horario in horarios %}
+                            <option value="{{horario.id}}">{{horario.agenda.data}} - {{horario.horario}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="mt-2">AGENDAR</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex justify-content-center">
+                <img src="{% static 'img/schedule.png' %}" alt="" style="width: 420px;">
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'core/_footer.html' %}{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu3.html' %}
+<section class="dashboard-profissional">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-center pt-5 mb-5 d-inline border-bottom">Seja bem-vindo(a), {{ user.username }}</h1>
+            </div>
+        </div>
+        {% include 'core/_alertas.html' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card-vacinas mb-5">
+                    <div class="col-12 d-flex  justify-content-center">
+                        <h3 class="text-center pt-4 d-inline border-bottom">Agenda do(a) {{ estabelecimento.nomeFantasia }}</h3>
+                    </div>
+                    {% if msg == True %}
+                    <div class="col-12">
+                        <h4 class="text-center py-5">Agenda do dia indisponível, selecione "Cadastrar agenda" acima</h4>
+                    </div>
+                    {% else %}
+                    <div class="col-12">
+                        <h4 class="text-center">Dia: {{ agenda.data }}</h4>
+                    </div>
+                    <div class="col-12">
+                        <h5 class="text-center my-5">Pacientes confirmados: {{agenda.fila}} - Posição da fila: {{agenda.fila_chamada}}</h5>
+                    </div>
+                    <div class="col-12 agendamentos-estabelecimento">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Horário</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Paciente</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Vacina</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Posição</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Hora Chegada</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Hora Chamada</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Hora Atendimento</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Confirmação</b></td>
+                                </tr>
+                                {% for horarioAgenda in horarioAgendas %}
+                                <tr>
+                                    <td class="text-center" style="display: flex; flex-direction: column;">
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" name="registro_chegada" value="{{horarioAgenda.id}}" class="mb-1"><i class="fas fa-check"></i></button>
+                                        </form>
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" name="registro_aplicacao" value="{{horarioAgenda.id}}"><i class="fas fa-syringe"></i></button>
+                                        </form>
+                                    </td>
+                                    <td class="text-center">{{horarioAgenda.horario}}</td>
+                                    <td class="text-center">{{horarioAgenda.paciente.nome}}</td>
+                                    {% if horarioAgenda.vacina %}
+                                    <td class="text-center">{{horarioAgenda.vacina}}</td>
+                                    {%else%}
+                                    <td class="text-center">-</td>
+                                    {% endif %}
+                                    <td class="text-center">{{horarioAgenda.fila}}</td>
+                                    {% if horarioAgenda.hora_chegada %}
+                                    <td class="text-center">{{horarioAgenda.hora_chegada}}</td>
+                                    {%else%}
+                                    <td class="text-center">-</td>
+                                    {% endif %} {% if horarioAgenda.hora_chamada %}
+                                    <td class="text-center">{{horarioAgenda.hora_chamada}}</td>
+                                    {%else%}
+                                    <td class="text-center">-</td>
+                                    {% endif %} {% if horarioAgenda.hora_atendimento %}
+                                    <td class="text-center">{{horarioAgenda.hora_atendimento}}</td>
+                                    {%else%}
+                                    <td class="text-center">-</td>
+                                    {% endif %} {% if horarioAgenda.confirmacao == True %}
+                                    <td class="text-center"><img src="{%static 'img/correct.png' %}" alt="" style="width: 23px;"></td>
+                                    {% else %}
+                                    <td class="text-center"><img src="{%static 'img/wrong.png' %}" alt="" style="width: 23px;"></td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+
+                    <form action="{% url 'dashboard_profissional' %}" method="post">
+                        {% csrf_token %}
+                        <div class="visualizar col-12 d-flex justify-content-end">
+                            <button type="submit" name="chamar_paciente">CHAMAR PACIENTE</button>
+                        </div>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'core/_footer.html' %}{% endblock %}

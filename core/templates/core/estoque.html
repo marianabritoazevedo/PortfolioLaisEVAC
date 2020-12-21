@@ -1,0 +1,43 @@
+{% extends 'core/_base.html' %} {% load static %} {% block content %} {% include 'core/_menu3.html' %}
+<section class="dashboard-paciente">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h1 class="text-center pt-5 mb-5 d-inline border-bottom">Estoque de vacinas</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card-vacinas mb-5">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h4 class="text-center pt-4 pb-4"><b> Estoque do(a) {{estabelecimento.nomeFantasia}}</b></h4>
+                    </div>
+                    <div class="col-12 vacinas-pendentes">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Vacina</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Quantidade</b></td>
+                                    <td class="px-2 text-center" style="background-color: #FFDFCF;"><b>Alterar</b></td>
+                                </tr>
+                                {% for estoque in estoques %}
+                                <tr>
+                                    <td class="text-center">{{estoque.vacina.nome}}</td>
+                                    <td class="text-center">{{estoque.quantidade}}</td>
+                                    <td class="text-center">
+                                        <form action="{% url 'estoque' %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" value="{{estoque.id}}" class="mb-1"><i class="fas fa-edit"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'core/_footer.html' %}{% endblock %}
